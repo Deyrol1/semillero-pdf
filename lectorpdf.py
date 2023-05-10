@@ -1,4 +1,4 @@
-import PyPDF2  
+from PyPDF2 import PdfReader
 import pathlib
 from os import remove
 
@@ -14,29 +14,29 @@ for fichero in directorio.iterdir():
         miau.append(fichero.name)
         
 
+
 for i in range(len(miau)):
-    print(miau[i])
     if(miau[i]=="pdf"):
         miau.pop(i)
         break
-
-
-
-
-
+    
+print(miau)
 for i in range(len(miau)):
 
-    pdfFileObj = open(miau[i], 'rb')  
     try:
-        pdfReader = PyPDF2.PdfFileReader(pdfFileObj)  
-        for i in range(pdfReader.numPages):
-            pageObj = pdfReader.getPage(i)
-            
-            print(pageObj.extractText())  
-        pdfFileObj.close()
+        reader = PdfReader(miau[i])
+        for i in range(len(reader.pages)):
+            page = reader.pages[i]
+            text = page.extract_text()
+            print(text)
     except:
-        pdfFileObj.close()
+        print(miau[i],"da error")
         remove(miau[i])
+
+
+
+
+
 
     
 

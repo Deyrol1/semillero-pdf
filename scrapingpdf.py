@@ -3,6 +3,8 @@ import requests
 import json
 import os
 from bs4 import BeautifulSoup
+import ssl
+
 #Haciendo la peticón para extraer el html y se pone la página que quiero hacer el scraping
 
 
@@ -14,12 +16,14 @@ with open("urls.txt") as fname:
 
 num_paginas=len(datos)
 
+
+ssl._create_default_https_context = ssl._create_unverified_context
 data = {}
 data['urlpdf'] = []
 sitios = []
 for i in range(num_paginas):
     url=datos[i]
-    pagina= requests.get(url)
+    pagina= requests.get(url,verify=False)
     #leyendo la información guardada en page
     soup = BeautifulSoup(pagina.content,'html.parser')
     #buscando las etiquetas que quiero 

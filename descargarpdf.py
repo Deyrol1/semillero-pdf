@@ -15,7 +15,7 @@ def url_response(url):
 
 def url_response(url):
     path, url = url
-    r = requests.get(url, stream = True)
+    r = requests.get(url, stream = True, verify=False)
 
     with open(path, 'wb') as f:
 
